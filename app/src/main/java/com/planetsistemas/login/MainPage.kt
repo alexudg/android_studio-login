@@ -55,13 +55,6 @@ fun MainPage(navController: NavController, viewModel: LoginViewModel = LoginView
     val scrollState = rememberScrollState()
     val focus = remember { FocusRequester() }
 
-    LaunchedEffect(key1 = imeState.value) {
-        if (imeState.value) {
-            scrollState.animateScrollTo(scrollState.maxValue, tween(300))
-        }
-        focus.requestFocus()
-    }
-
     // traditional values of TextField
     //var email: String by rememberSaveable { mutableStateOf("") }
     //var pass: String by rememberSaveable { mutableStateOf("") }
@@ -71,6 +64,16 @@ fun MainPage(navController: NavController, viewModel: LoginViewModel = LoginView
     val email: String by viewModel.email.observeAsState(initial = "")
     val pass: String by viewModel.pass.observeAsState(initial = "")
     val isBtnSessionEnable: Boolean by viewModel.isBtnSessionEnabled.observeAsState(initial = false)
+
+    LaunchedEffect(key1 = imeState.value) {
+        if (imeState.value) {
+            scrollState.animateScrollTo(scrollState.maxValue, tween(300))
+        }
+
+        viewModel.onLoginChanged("alexudg@gmail.com", "1234567890")
+
+        focus.requestFocus()
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()

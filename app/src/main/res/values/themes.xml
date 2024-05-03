@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Android_studiologin" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Login" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Theme for splash screen -->
+    <style name="Theme.Login_SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FFE185</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_leones_negros</item>
+
+        <!-- theme after hide splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.Login</item>
+
+        <!-- no more to 1000ms -->
+        <item name="windowSplashScreenAnimationDuration">0</item>
+    </style>
 </resources>

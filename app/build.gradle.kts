@@ -52,7 +52,6 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
@@ -67,10 +66,20 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    // viewModel
+    // splash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+
+    // viewModel
     implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
 
     // navigation
     implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
+
+    // Retrofit http request
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Retrofit json to object or object to json
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }

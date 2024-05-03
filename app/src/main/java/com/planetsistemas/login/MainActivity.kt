@@ -1,36 +1,58 @@
 package com.planetsistemas.login
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.*
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import com.planetsistemas.login.api.ApiService
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
+    //var isKeepSplashScreen = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //var isKeepSplashScreen = true
+        //val service = ApiService.makeIAPiService()
+
+        // splash screen
+        // implementation("androidx.core:core-splashscreen:1.0.1")
+        // create new theme on values/themes: parent="Theme.SplashScreen"
+        //installSplashScreen().setKeepOnScreenCondition { isKeepSplashScreen }
+        installSplashScreen()
+
+        /*
+        println("before http")
+
+        runBlocking {
+            val products = service.getAll()
+            println(products)
+            isKeepSplashScreen = false
+            println("hide splash")
+        }
+        */
+
+        /*
+        lifecycleScope.launch {
+            val products = service.getAll()
+            println(products)
+            isKeepSplashScreen = true
+            println("hide splash")
+        }
+        */
+
+        println("after http")
+
+        /*
+        runBlocking {
+            delay(0)
+            isKeepSplashScreen = false
+        }
+        */
+
         setContent {
             // navigation drive screen
             Navigation()
