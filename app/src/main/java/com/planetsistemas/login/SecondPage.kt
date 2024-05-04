@@ -31,22 +31,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.planetsistemas.login.api.ApiService
 import com.planetsistemas.login.api.Product
-import com.planetsistemas.login.api.Result
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.runInterruptible
-import kotlin.coroutines.CoroutineContext
+import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -75,15 +68,12 @@ fun SecondPage(navController: NavController, email: String?) {
 fun BodyContent(navController: NavController, innerPadding: PaddingValues, email: String) {
     val apiService = ApiService.makeIAPiService()
 
-    val context = LocalContext.current
-
-    var result: Result
     var products by rememberSaveable {
         mutableStateOf(listOf<Product>())
     }
 
     var isLoading by rememberSaveable {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
 
     Column(
@@ -96,12 +86,16 @@ fun BodyContent(navController: NavController, innerPadding: PaddingValues, email
         Text("Bienvenid@ \n${email}")
         Button(
             onClick = {
-                products = emptyList()
-                isLoading = true
                 CoroutineScope(Dispatchers.Main).launch {
+                    isLoading = true
+                    products = emptyList()
 
+                    // promise
                     val deferred = async { apiService.getAll() }
-                    result = deferred.await()
+
+                    // await
+                    val result = deferred.await()
+
                     products = result.products
                     println(products)
                     isLoading = false
@@ -121,6 +115,11 @@ fun BodyContent(navController: NavController, innerPadding: PaddingValues, email
             onClick = { navController.popBackStack() }
         ) {
             Text("Cerrar sesión")
+        }
+        Button(
+            onClick = { exitProcess(0) }
+        ) {
+            Text("Cerrar App")
         }
         if (products.isEmpty()) {
             Box(
